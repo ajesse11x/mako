@@ -18,9 +18,10 @@ Mako runs databases and data services inside individual docker containers.
 Environment variables are created to make it easier to connect to services.
 Databases and data services run inside a virtual docker network that is private.
 Establishing a tunnel is required to be able to connect to services remotely.
-All services will have an environment variable with the IP address of the host.
+All services will have an environment variable  with the IP address of the host
+(`<SERVICE_NAME>_HOST`).
 Services that require authentication also have environment variables for the
-username and password.
+username and password (`<SERVICE_NAME>_USER` and `<SERVICE_NAME>_PASS`).
 
 **Mako does not automatically change code to connect to databases**
 
