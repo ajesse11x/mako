@@ -87,7 +87,7 @@ The file/folder structure looks something like this for a basic Node.js project:
       - mako.yml
 
 ### mako.yml
-The `mako.yml` file contains instructions for mako on how what services to build
+The `mako.yml` file contains instructions for mako on how what services to run
 and how to build them.
 
 ### Dockerfile
@@ -98,8 +98,9 @@ additional steps need to be taken to make the project run.
 ### start-node
 The `start-node` script is a wrapper script to run processes inside a docker
 container. It has a section near the top where custom pre-start commands can be
-run. It can also have multiple commands start if needed (nginx/apache for static
-assets, and other process for the language).
+run (setting up environment variables based on other ones). It can also have
+multiple commands start if needed (nginx/apache for static assets, and other
+process for the language).
 
 ### build-node-app
 The `build-node-app` script is called by the Dockerfile. This should have
