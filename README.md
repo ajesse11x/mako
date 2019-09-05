@@ -12,6 +12,7 @@ Things that currently do not work (but will at some time):
   - SSL
   - Tunneling into data services
   - Health stats
+  - After/before live hooks
 
 ## How To Use Databases
 Mako runs databases and data services inside individual docker containers.
@@ -68,3 +69,53 @@ For PostgreSQL we create a few environment variables:
 Redis listens on the default port of 6379.
 For Redis we create one environment variable:
   - REDIS_HOST
+
+## Advanced Details
+The mako cli will create some files and folders inside the project.
+The file/folder structure looks something like this for a basic Node.js project:
+  - .mako/
+    - deploy/
+      - bin/
+        - start-node
+      - build-scripts/
+        - build-node-app
+        - build-node-env
+      - hooks/
+        - after_live
+        - before_live
+      - Dockerfile
+      - mako.yml
+
+### mako.yml
+The `mako.yml` file contains instructions for mako on how what services to build
+and how to build them.
+
+### Dockerfile
+The `Dockerfile` file contains instructions for Docker to build a container to
+run the project. There might be changes that need to be made manually if
+additional steps need to be taken to make the project run.
+
+### start-node
+The `start-node` script is a wrapper script to run processes inside a docker
+container. It has a section near the top where custom pre-start commands can be
+run. It can also have multiple commands start if needed (nginx/apache for static
+assets, and other process for the language).
+
+### build-node-app
+The `build-node-app` script is called by the Dockerfile. This should have
+instructions on building the project (compiling static assets, generate
+bytecode).
+
+### build-node-env
+The `build-node-env` script is called by the Dockerfile. This should have
+instructions on building the environment so that the code can be executed. This
+may include installing libraries or other programs needed either during runtime
+or for building.
+
+### after_live
+The `after_live` script should run after the routing has been updated to direct
+connections to the new running instance (Purge old cache).
+
+### before_live
+The `before_live` script should run before the routing has been updated to
+direct connections to the new running instance (database migration).
