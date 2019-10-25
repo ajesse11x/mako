@@ -7,6 +7,7 @@ This repo is to track issues and provide basic documentation to get started.
 
 ## Known Limitations / Future Development
 Things that currently do not work (but will at some time):
+  - CLI for Windows
   - SSL
   - Health stats
   - After/before live hooks
